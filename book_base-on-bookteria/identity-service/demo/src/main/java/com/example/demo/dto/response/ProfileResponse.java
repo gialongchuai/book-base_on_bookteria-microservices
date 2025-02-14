@@ -1,4 +1,4 @@
-package com.gialongchuai.profile.dto.request;
+package com.example.demo.dto.response;
 
 import lombok.*;
 import lombok.experimental.FieldDefaults;
@@ -7,11 +7,11 @@ import java.time.LocalDate;
 
 @Getter
 @Setter
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class UserProfileCreationRequest {
+public class ProfileResponse {
     String userId;
     String firstName;
     String lastName;

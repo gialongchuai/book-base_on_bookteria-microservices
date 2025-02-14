@@ -20,3 +20,6 @@ jwt:
   valid-duration: 3600 # in sencond
   refreshable-duration: 36000 # in second
 
+app:
+  services:
+    profile: "http://localhost:8081/profile"

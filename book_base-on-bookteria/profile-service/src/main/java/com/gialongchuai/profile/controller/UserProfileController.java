@@ -19,7 +19,7 @@ public class UserProfileController {
     UserProfileService userProfileService;
 
     @PostMapping("")
-    UserProfileResponse create(@RequestBody  UserProfileCreationRequest userProfileCreationRequest) {
+    UserProfileResponse create(@RequestBody UserProfileCreationRequest userProfileCreationRequest) {
         return userProfileService.create(userProfileCreationRequest);
     }
 

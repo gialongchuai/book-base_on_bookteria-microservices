@@ -4,6 +4,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import com.example.demo.mapper.ProfileMapper;
+import com.example.demo.repository.httpclient.ProfileClient;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.access.prepost.PostAuthorize;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -36,6 +38,8 @@ public class UserService {
     UserMapper userMapper;
     PasswordEncoder passwordEncoder;
     RoleRepository roleRepository;
+    ProfileClient profileClient;
+    ProfileMapper profileMapper;
 
     public UserResponse createUser(UserCreationRequest userCreationRequest) {
         User user = userMapper.toUser(userCreationRequest);
@@ -47,6 +51,11 @@ public class UserService {
 
         try {
             user = userRepository.save(user);
+
+            var profileRequest = profileMapper.toProfileCreationRequest(userCreationRequest);
+            profileRequest.setUserId(user.getId());
+
+            profileClient.createProfile(profileRequest);
         } catch (DataIntegrityViolationException exception) {
             throw new AppException(ErrorCode.USER_EXISTED);
         }
