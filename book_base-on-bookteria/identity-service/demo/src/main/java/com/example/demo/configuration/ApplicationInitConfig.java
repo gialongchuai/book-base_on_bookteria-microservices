@@ -32,7 +32,7 @@ public class ApplicationInitConfig {
             value = "datasource.driverClassName",
             havingValue = "com.mysql.cj.jdbc.Driver")
     ApplicationRunner applicationRunner(UserRepository userRepository) {
-        log.info("Dang chay Init Config");
+        // log.info("Dang chay Init Config");
         return args -> {
             if (userRepository.findByUsername("admin").isEmpty()) {
                 Set<Role> roles = new HashSet<>();
