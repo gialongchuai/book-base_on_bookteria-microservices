@@ -57,7 +57,8 @@ public class AuthenticationService {
     @Value("${jwt.refreshable-duration}")
     private long REFRESHABLE_DURATION;
 
-    public IntroSpectResponse introspect(IntroSpectRequest introSpectRequest) throws JOSEException, ParseException {
+    public IntroSpectResponse introspect(IntroSpectRequest introSpectRequest)
+            throws JOSEException, ParseException {
         String token = introSpectRequest.getToken();
 
         boolean isValid = true;
