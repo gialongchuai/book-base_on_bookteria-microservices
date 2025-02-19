@@ -1,26 +1,15 @@
-package com.example.demo.configuration;
-
-import java.text.ParseException;
+package com.gialongchuai.profile.configuration;
 
 import com.nimbusds.jwt.SignedJWT;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.security.oauth2.jwt.JwtDecoder;
 import org.springframework.security.oauth2.jwt.JwtException;
 import org.springframework.stereotype.Component;
 
-import com.example.demo.service.AuthenticationService;
+import java.text.ParseException;
 
 @Component
 public class CustomJwtDecoder implements JwtDecoder {
-
-    @Value("${jwt.signerKey}")
-    private String signerKey;
-
-    @Autowired
-    private AuthenticationService authenticationService;
-
     @Override
     public Jwt decode(String token) throws JwtException {
         try {
