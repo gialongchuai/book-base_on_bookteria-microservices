@@ -35,7 +35,7 @@ public class UserController {
     //        return userResponseApiResponse;
     //    }
 
-    @PostMapping
+    @PostMapping("/registration")
     ApiResponse<UserResponse> createUser(@RequestBody @Valid UserCreationRequest userCreationRequest) {
         return ApiResponse.<UserResponse>builder()
                 .code(SuccessCode.SUCCESS_CODE.getCode())
