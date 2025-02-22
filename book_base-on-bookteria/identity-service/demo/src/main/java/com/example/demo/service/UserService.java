@@ -7,6 +7,7 @@ import java.util.Set;
 import com.example.demo.mapper.ProfileMapper;
 import com.example.demo.repository.httpclient.ProfileClient;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.security.access.prepost.PostAuthorize;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -42,6 +43,7 @@ public class UserService {
     RoleRepository roleRepository;
     ProfileClient profileClient;
     ProfileMapper profileMapper;
+    KafkaTemplate<String, String> kafkaTemplate;
 
     public UserResponse createUser(UserCreationRequest userCreationRequest) {
         User user = userMapper.toUser(userCreationRequest);
@@ -59,6 +61,8 @@ public class UserService {
 
 
             profileClient.createProfile(profileRequest);
+
+            kafkaTemplate.send("onboard-successful","Welcom, " + userCreationRequest.getUsername());
         } catch (DataIntegrityViolationException exception) {
             throw new AppException(ErrorCode.USER_EXISTED);
         }
