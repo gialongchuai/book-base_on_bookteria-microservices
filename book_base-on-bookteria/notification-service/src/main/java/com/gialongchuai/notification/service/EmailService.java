@@ -12,7 +12,9 @@ import feign.FeignException;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
+import lombok.experimental.NonFinal;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -24,7 +26,9 @@ import java.util.List;
 public class EmailService {
     EmailClient emailClient;
 
-    String api_key = "KEY_API_SEND_EMAIL";
+    @Value("${notification.email.brevo-apikey}")
+    @NonFinal
+    String api_key;
 
     public EmailResponse sendEmail(SendEmailRequest sendEmailRequest) {
         log.info("Service is here!");
