@@ -39,7 +39,10 @@ public class AuthenticationFilter implements GlobalFilter, Ordered {
     // o day loai bo xac thuc qua endpoint /identity/users/registration nhung xuong tang service van
     // keu xac thuc nen la o duoi service them cai loai bo endpoint nay
     @NonNull
-    private String[] publicEndpoints = {"/identity/auth/.*", "/identity/users/registration"};
+    private String[] publicEndpoints = {
+            "/identity/auth/.*", "/identity/users/registration",
+            "/notification/email/send"
+    };
 
     @Value("${app.api-path-prefix}")
     @NonFinal
