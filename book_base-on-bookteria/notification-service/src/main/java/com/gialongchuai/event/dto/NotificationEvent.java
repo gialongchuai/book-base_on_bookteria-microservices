@@ -7,10 +7,10 @@ import java.util.Map;
 
 @Setter
 @Getter
-@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
+@ToString
 public class NotificationEvent {
     String channel;
     String recipient;

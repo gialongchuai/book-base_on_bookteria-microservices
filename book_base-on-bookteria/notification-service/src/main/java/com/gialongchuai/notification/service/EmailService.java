@@ -31,7 +31,7 @@ public class EmailService {
     String api_key;
 
     public EmailResponse sendEmail(SendEmailRequest sendEmailRequest) {
-        log.info("Service is here!");
+        log.info("Service is here!" + api_key);
         EmailRequest emailRequest = EmailRequest.builder()
                 .sender(Sender.builder()
                         .name("gialongchuai demo with u")
@@ -39,8 +39,13 @@ public class EmailService {
                         .build())
                 .to(List.of(sendEmailRequest.getTo()))
                 .subject(sendEmailRequest.getSubject())
-                .htmlContent(sendEmailRequest.getSubject())
+                .htmlContent(sendEmailRequest.getHtmlContent())
                 .build();
+        log.info("===================");
+        log.info(List.of(sendEmailRequest.getTo()).toString());
+        log.info(sendEmailRequest.getSubject());
+        log.info(sendEmailRequest.getHtmlContent());
+        log.info("===================");
 
         try {
             return emailClient.sendEMail(api_key, emailRequest);

@@ -4,6 +4,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import com.gialongchuai.event.dto.NotificationEvent;
 import com.gialongchuai.identity.mapper.ProfileMapper;
 import com.gialongchuai.identity.repository.httpclient.ProfileClient;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -43,7 +44,7 @@ public class UserService {
     RoleRepository roleRepository;
     ProfileClient profileClient;
     ProfileMapper profileMapper;
-    KafkaTemplate<String, String> kafkaTemplate;
+    KafkaTemplate<String, NotificationEvent> kafkaTemplate;
 
     public UserResponse createUser(UserCreationRequest userCreationRequest) {
         User user = userMapper.toUser(userCreationRequest);
@@ -62,7 +63,15 @@ public class UserService {
 
             profileClient.createProfile(profileRequest);
 
-            kafkaTemplate.send("onboard-successful","Welcom, " + userCreationRequest.getUsername());
+            NotificationEvent event = NotificationEvent.builder()
+                    .channel("EMAIL")
+                    .recipient(userCreationRequest.getEmail())
+                    .templateCode("WELCOME_EMAIL")
+                    .subject("Welcome to our platform!")
+                    .body("Hello " + userCreationRequest.getUsername() + ", welcome to our service!")
+                    .build();
+
+            kafkaTemplate.send("onboard-successful", event);
         } catch (DataIntegrityViolationException exception) {
             throw new AppException(ErrorCode.USER_EXISTED);
         }

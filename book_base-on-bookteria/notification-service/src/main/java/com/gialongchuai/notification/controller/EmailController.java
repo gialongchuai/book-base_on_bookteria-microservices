@@ -1,6 +1,8 @@
 package com.gialongchuai.notification.controller;
 
+import com.gialongchuai.event.dto.NotificationEvent;
 import com.gialongchuai.notification.dto.request.EmailRequest;
+import com.gialongchuai.notification.dto.request.Recipient;
 import com.gialongchuai.notification.dto.request.SendEmailRequest;
 import com.gialongchuai.notification.dto.response.ApiResponse;
 import com.gialongchuai.notification.dto.response.EmailResponse;
@@ -28,10 +30,5 @@ public class EmailController {
         return ApiResponse.<EmailResponse>builder()
                 .result(emailService.sendEmail(sendEmailRequest))
                 .build();
-    }
-
-    @KafkaListener(topics = "onboard-successful")
-    public void message(String message) {
-        log.info(message);
     }
 }
