@@ -157,7 +157,7 @@ public class AuthenticationService {
         JWSHeader jwsHeader = new JWSHeader(JWSAlgorithm.HS512);
 
         JWTClaimsSet jwtClaimsSet = new JWTClaimsSet.Builder()
-                .subject(user.getUsername()) // ở đây để sub là username để qua bên kia getInfo thì lấy cái sub này
+                .subject(user.getId()) // ở đây để sub là username để qua bên kia getInfo thì lấy cái sub này
                 // mà tra
                 .issuer("gialongchuai.com")
                 .issueTime(new Date())
