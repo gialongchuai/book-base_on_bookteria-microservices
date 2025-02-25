@@ -18,11 +18,16 @@ import org.springframework.web.bind.annotation.*;
 public class PostController {
     PostService postService;
 
-    @PostMapping("/create")
+    @PostMapping("/create/test")
     ApiResponse<PostResponse> create(@RequestBody PostRequest postRequest){
         return ApiResponse.<PostResponse>builder()
                 .result(postService.create(postRequest))
                 .build();
+    }
+
+    @PostMapping("")
+    String testApi(@RequestBody PostRequest postRequest){
+        return postRequest.getContent();
     }
 
     @GetMapping("/my-post")

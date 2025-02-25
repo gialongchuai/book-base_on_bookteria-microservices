@@ -4,6 +4,8 @@ import com.gialongchuai.profile.dto.request.UserProfileCreationRequest;
 import com.gialongchuai.profile.dto.request.UserProfileUpdationRequest;
 import com.gialongchuai.profile.dto.response.UserProfileResponse;
 import com.gialongchuai.profile.entity.UserProfile;
+import com.gialongchuai.profile.exception.AppException;
+import com.gialongchuai.profile.exception.ErrorCode;
 import com.gialongchuai.profile.mapper.UserProfileMapper;
 import com.gialongchuai.profile.repository.UserProfileRepository;
 import lombok.AccessLevel;
@@ -31,7 +33,14 @@ public class UserProfileService {
 
     public UserProfileResponse getUserProfile(String userProfileId) {
         UserProfile userProfile = userProfileRepository.findById(userProfileId)
-                .orElseThrow(() -> new RuntimeException("User profile not exist!"));
+                .orElseThrow(() -> new AppException(ErrorCode.PROFILE_NOT_EXISTED));
+
+        return userProfileMapper.toUserProfileResponse(userProfile);
+    }
+
+    public UserProfileResponse getProfileByUserId(String userId) {
+        UserProfile userProfile = userProfileRepository.findByUserId(userId)
+                .orElseThrow(() -> new AppException(ErrorCode.USER_NOT_EXISTED));
 
         return userProfileMapper.toUserProfileResponse(userProfile);
     }

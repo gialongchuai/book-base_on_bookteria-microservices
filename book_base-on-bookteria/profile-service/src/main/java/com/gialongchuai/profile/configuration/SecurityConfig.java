@@ -25,7 +25,7 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
 
         httpSecurity.authorizeHttpRequests(
-                request -> request.requestMatchers(HttpMethod.POST, SecurityConstant.PUBLIC_ENDPOINTS)
+                request -> request.requestMatchers(SecurityConstant.PUBLIC_ENDPOINTS)
                         .permitAll()
                         .anyRequest()
                         .authenticated());

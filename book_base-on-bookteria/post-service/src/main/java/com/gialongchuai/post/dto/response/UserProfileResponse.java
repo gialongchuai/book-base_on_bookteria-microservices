@@ -1,4 +1,4 @@
-package com.gialongchuai.profile.dto.response;
+package com.gialongchuai.post.dto.response;
 
 import lombok.*;
 import lombok.experimental.FieldDefaults;

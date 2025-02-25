@@ -2,7 +2,7 @@ package com.gialongchuai.profile.constant;
 
 public class SecurityConstant {
     public static final String[] PUBLIC_ENDPOINTS = {
-            "/users", "/users/.*"
+            "/users", "/users/{userId}"
     };
 
     public static final String JWT_AUTHORITY_PREFIX = "";

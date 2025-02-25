@@ -23,9 +23,14 @@ public class UserProfileController {
         return userProfileService.create(userProfileCreationRequest);
     }
 
-    @GetMapping("/{profileId}")
-    UserProfileResponse getUserProfile(@PathVariable String profileId) {
-        return userProfileService.getUserProfile(profileId);
+//    @GetMapping("/{profileId}")
+//    UserProfileResponse getUserProfile(@PathVariable String profileId) {
+//        return userProfileService.getUserProfile(profileId);
+//    }
+
+    @GetMapping("/{userId}")
+    UserProfileResponse getProfileByUserId(@PathVariable String userId) {
+        return userProfileService.getProfileByUserId(userId);
     }
 
     @GetMapping("")
@@ -43,4 +48,6 @@ public class UserProfileController {
         userProfileService.deleteUserProfile(profileId);
         return "Delete user profile successfully!";
     }
+
+
 }

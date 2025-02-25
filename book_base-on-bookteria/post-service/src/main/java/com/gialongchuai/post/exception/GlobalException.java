@@ -16,13 +16,13 @@ import java.util.Objects;
 @Slf4j
 public class GlobalException {
 
-    @ExceptionHandler(value = Exception.class)
-    ResponseEntity<ApiResponse> sampleHandlingRunTimeException(Exception exception) {
-        ApiResponse apiResponse = new ApiResponse();
-        apiResponse.setCode(ErrorCode.UNAUTHENTICATED.getCode());
-        apiResponse.setMessage(ErrorCode.UNAUTHENTICATED.getMessage());
-        return ResponseEntity.badRequest().body(apiResponse);
-    }
+//    @ExceptionHandler(value = Exception.class)
+//    ResponseEntity<ApiResponse> sampleHandlingRunTimeException(Exception exception) {
+//        ApiResponse apiResponse = new ApiResponse();
+//        apiResponse.setCode(ErrorCode.UNAUTHENTICATED.getCode());
+//        apiResponse.setMessage(ErrorCode.UNAUTHENTICATED.getMessage());
+//        return ResponseEntity.badRequest().body(apiResponse);
+//    }
 
     //    @ExceptionHandler(value = RuntimeException.class)
     //    ResponseEntity<ApiResponse> handlingRunTimeException(RuntimeException runtimeException){
