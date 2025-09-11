@@ -1,5 +1,4 @@
 version: "3"
-name: gialongchuai
 services:
   kafka:
     image: 'bitnami/kafka:3.7.0'

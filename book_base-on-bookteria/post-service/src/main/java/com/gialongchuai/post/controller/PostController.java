@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.*;
 public class PostController {
     PostService postService;
 
-    @PostMapping("/create/test")
+    @PostMapping("/create")
     ApiResponse<PostResponse> create(@RequestBody PostRequest postRequest){
         return ApiResponse.<PostResponse>builder()
                 .result(postService.create(postRequest))
