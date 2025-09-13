@@ -1,39 +1,92 @@
 # MicroSync Social Platform
 
-## Description
+Một nền tảng mạng xã hội dựa trên kiến trúc microservices được xây dựng bằng **Spring Boot** và **Java 17**, tích hợp nhiều loại cơ sở dữ liệu (MySQL, MongoDB, Neo4j). Hệ thống bao gồm năm dịch vụ chính: API Gateway, Identity, Profile, Post và Notification Service, thể hiện các mẫu kiến trúc doanh nghiệp với xác thực JWT an toàn và thông báo real-time sử dụng Kafka.
 
-**MicroSync Social Platform** is a scalable, microservices-based social platform developed using **Spring Boot** and **Java 17**. The platform is composed of five independent services:
-- **API Gateway**: Routes traffic and manages requests across the microservices.
-- **Identity Service**: Handles user authentication and authorization.
-- **Profile Service**: Manages user profiles and synchronization.
-- **Post Service**: Manages posts, including CRUD operations and pagination.
-- **Notification Service**: Delivers real-time notifications and email alerts.
+## 🏗️ Kiến trúc Microservices
 
-### Key Features
-- **Secure User Authentication**: Implemented with **JWT** tokens and **BCrypt** password hashing for secure login and registration.
-- **Identity and Profile Management**: Integrated with **MySQL** for identity management and **MongoDB/Neo4j** for other services, supporting CRUD operations and profile synchronization.
-- **Post System**: Built a paginated post system using the **Strategy Design Pattern** for optimized post retrieval and management.
-- **Real-Time Notifications**: Enabled using **Kafka**, with email delivery integrated via **Brevo** on successful user actions.
-- **Service Communication**: Seamless inter-service communication using **WebClient** and **FeignClient** through the **API Gateway**, leveraging **Spring Cloud Gateway**.
-- **Cross-Origin Resource Sharing (CORS)**: Configured CORS policies to ensure proper handling of cross-origin requests.
-- **Role-Based Access Control (RBAC)**: Secured endpoints using **OAuth2** Resource Server for fine-grained access control.
-- **Dockerized Services**: Containerized services using Docker for consistent and reliable deployments.
-- **Unit and Integration Testing**: Comprehensive testing with **Postman**, **MockMVC**, **Mockito**, **JUnit 5**, and **Testcontainers** for both unit and integration testing.
-- **Code Quality and Coverage**: Enhanced code quality using **Spotless** and **SonarQube**, ensuring high standards and maintaining excellent test coverage.
+```
+┌─────────────────┐    ┌─────────────────┐    ┌─────────────────┐
+│     Client      │────│   API Gateway   │────│ Identity Service│
+│   (Frontend)    │    │  (Spring Cloud) │    │    (MySQL)      │
+└─────────────────┘    └─────────────────┘    └─────────────────┘
+                                │
+                    ┌───────────┼───────────┐
+                    │                       │
+           ┌─────────────────┐    ┌─────────────────┐
+           │ Profile Service │    │  Post Service   │
+           │      (Neo4j)    │    │    (MongoDB)    │
+           └─────────────────┘    └─────────────────┘
+                    │                       │
+                    └───────────┬───────────┘
+                                │
+                    ┌──────────────────┐    ┌─────────────────┐
+                    │   Notification   │────│  Apache Kafka   │
+                    │ Service (MongoDB)│    │ + Brevo Email   │
+                    └──────────────────┘    └─────────────────┘
+```
 
-## Technologies Used
-- **Spring Boot**: Framework used to build the microservices.
-- **Java 17**: Programming language for the development of the services.
-- **JWT**: Secure token-based authentication for user sessions.
-- **BCrypt**: Password hashing for secure user credentials storage.
-- **Spring Data JPA**: For managing data persistence in MySQL.
-- **MapStruct**: For efficient data mapping between layers.
-- **MongoDB** & **Neo4j**: NoSQL and graph databases for profile and post management.
-- **Kafka**: Real-time messaging system for event-driven notifications.
-- **Brevo**: Email delivery service for user notifications.
-- **Spring Cloud Gateway**: API Gateway for routing and handling service communications.
-- **OAuth2**: Resource server for secure role-based access control.
-- **Docker**: For containerizing services for deployment.
-- **JUnit 5** & **Mockito**: Unit and integration testing framework.
-- **Testcontainers**: For testing containerized services.
-- **Spotless** & **SonarQube**: For maintaining clean and high-quality code.
+## 🚀 Các Services Chính
+
+### 1. **API Gateway** (Spring Cloud Gateway)
+- **Vai trò**: Điểm vào trung tâm, định tuyến request và load balancing
+- **Tính năng**: CORS configuration, request filtering và transformation
+
+### 2. **Identity Service** (Xác thực & Phân quyền)
+- **Database**: MySQL
+- **Tính năng**:
+  - JWT authentication với BCrypt password encryption
+  - OAuth2 Resource Server integration
+  - Role-based access control (RBAC)
+
+### 3. **Profile Service** (Quản lý người dùng)
+- **Database**: Neo4j (Graph Database)
+- **Tính năng**: CRUD operations cho user profile và đồng bộ hóa dữ liệu
+
+### 4. **Post Service** (Quản lý bài viết)
+- **Database**: MongoDB
+- **Tính năng**: Tạo, chỉnh sửa, xóa bài viết với Strategy Design Pattern cho pagination
+
+### 5. **Notification Service** (Thông báo real-time)
+- **Database**: MongoDB + Apache Kafka + Brevo Email
+- **Tính năng**: Gửi thông báo real-time và email notifications
+
+## 🛠️ Công nghệ sử dụng
+
+### **Backend & Framework**
+- **Spring Boot** - Framework chính
+- **Java 17** - Ngôn ngữ lập trình
+- **Spring Cloud Gateway** - API Gateway
+- **Spring Security** - Xác thực và phân quyền
+
+### **Databases**
+- **MySQL** - Identity service
+- **MongoDB** - Post và Notification services (Document store)
+- **Neo4j** - Profile service (Graph database)
+
+### **Message Queuing & Communication**
+- **Apache Kafka** - Event streaming và real-time messaging
+- **Brevo** - Dịch vụ gửi email
+- **WebClient & FeignClient** - Inter-service communication
+
+### **Development & Testing**
+- **Maven** - Build automation
+- **Docker** - Containerization
+- **JUnit 5** - Unit testing
+- **MockMVC & Mockito** - Integration và mock testing
+- **MapStruct** - DTO-Entity mapping
+- **Lombok** - Giảm boilerplate code
+
+## 🔒 Tính năng bảo mật
+
+- **JWT Authentication** với BCrypt password hashing
+- **OAuth2 Resource Server** cho fine-grained access control
+- **CORS configuration** cho cross-origin requests
+- **Role-based permissions** cho các API endpoints
+
+## 📚 Patterns được áp dụng
+
+- **Microservices Architecture** - Tách biệt services theo business domain
+- **API Gateway Pattern** - Centralized entry point
+- **Strategy Design Pattern** - Post retrieval optimization
+- **Event-driven Architecture** - Kafka message streaming
+- **Database per Service** - Data isolation giữa các services
