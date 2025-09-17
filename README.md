@@ -2,28 +2,6 @@
 
 Một nền tảng mạng xã hội dựa trên kiến trúc microservices được xây dựng bằng **Spring Boot** và **Java 17**, tích hợp nhiều loại cơ sở dữ liệu (MySQL, MongoDB, Neo4j). Hệ thống bao gồm năm dịch vụ chính: API Gateway, Identity, Profile, Post và Notification Service, thể hiện các mẫu kiến trúc doanh nghiệp với xác thực JWT an toàn và thông báo real-time sử dụng Kafka.
 
-## 🏗️ Kiến trúc Microservices
-
-```
-┌─────────────────┐    ┌─────────────────┐    ┌─────────────────┐
-│     Client      │────│   API Gateway   │────│ Identity Service│
-│   (Frontend)    │    │  (Spring Cloud) │    │    (MySQL)      │
-└─────────────────┘    └─────────────────┘    └─────────────────┘
-                                │
-                    ┌───────────┼───────────┐
-                    │                       │
-           ┌─────────────────┐    ┌─────────────────┐
-           │ Profile Service │    │  Post Service   │
-           │      (Neo4j)    │    │    (MongoDB)    │
-           └─────────────────┘    └─────────────────┘
-                    │                       │
-                    └───────────┬───────────┘
-                                │
-                    ┌──────────────────┐    ┌─────────────────┐
-                    │   Notification   │────│  Apache Kafka   │
-                    │ Service (MongoDB)│    │ + Brevo Email   │
-                    └──────────────────┘    └─────────────────┘
-```
 
 ## 🚀 Các Services Chính
 
